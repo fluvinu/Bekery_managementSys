@@ -7,7 +7,7 @@ public class MainApp {
     static String role=null;
     public static void main(String[] args) {
         if(admin==null && cus==null){
-            System.out.println("=============================");
+            System.out.println("enter exit in uname and pass to exit");
             System.out.println("enter username");
             String uname = sc.next();
             System.out.println("enter pass");
@@ -26,6 +26,9 @@ public class MainApp {
                     cus = new ConstmerImp();
                     cusDisplay();
                     break;
+                case "exit":
+                    System.out.println("good bye");
+                    System.exit(0);
                 default:
                     System.out.println("invalid opration");
 
@@ -157,7 +160,7 @@ public class MainApp {
                 System.out.println("==============================================");
                 System.out.println("enter order id ");
                 int oidDeletAll = sc.nextInt();
-                n=cus.deleteWholeOrder(oidDeletAll);
+                n=cus.deleteWholeOrder(oidDeletAll,role);
 
                 break;
             case 5:
@@ -172,9 +175,12 @@ public class MainApp {
                 break;
             case 6:
                 System.out.println("==============================================");
+                double cost=0;
                 for (Orders uOr:cus.viewOrders(role)){
                     System.out.println(uOr.getOid()+" "+uOr.getPid()+" "+uOr.getName()+" "+uOr.getQty()+" "+uOr.getCost()+" "+uOr.getUserName());
+                    cost=cost+uOr.getCost();
                 }
+                System.out.println("total cost is = "+cost);
                 System.out.println("==============================================");
                 break;
             case 7:

@@ -11,7 +11,7 @@ public interface CostermerService extends Service{
 
     List<Orders> viewOrders(String role);
 
-    int deleteWholeOrder(int oidDeletAll);
+    int deleteWholeOrder(int oidDeletAll, String role);
 
     List<Product> vieProductById(int pidS);
 }

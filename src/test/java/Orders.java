@@ -6,7 +6,7 @@ public class Orders {
     private int qty;
     private double cost;
 
-    private  String name;
+    private  String name; // use as a role in cencel whole order
     private String userName;
 
 

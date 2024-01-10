@@ -214,18 +214,30 @@ public class ConstmerImp implements CostermerService {
     }
 
     @Override
-    public int deleteWholeOrder(int oidDeletAll) {
+    public int deleteWholeOrder(int oidDeletAll, String role) {
         int n=0;
-        // how to get whole product ids and on indiviusal and add product to them we have to use list foe that to
-        // sand data throw and resive as wll lets see
-        String quary4odrs= "delete from orders_info where Oid=?";
+        String quary4odrs= "select ors.Oid,p.pId,p.pName,o.user_id from orders_info ors inner join product p on ors.pId = p.pId inner join order_info o on o.oId = ors.Oid where o.Oid=? and o.user_id=?;";
         String quary4oder="delete from order_info where oId=?";
         try {
 
             // ordrers delete
             PreparedStatement pstmt= conn.prepareStatement(quary4odrs);
             pstmt.setInt(1,oidDeletAll);
-            n=pstmt.executeUpdate();
+            pstmt.setString(2,role);
+            ResultSet rs =pstmt.executeQuery();
+            while (rs.next()){
+               String pname=rs.getString(3);
+                CallableStatement cstmt= conn.prepareCall("{call cancelOrder(?,?,?)}");
+                cstmt.setInt(1,oidDeletAll);
+                cstmt.setString(2,pname);
+                cstmt.setString(3,role);
+               boolean v= cstmt.execute();
+               int count=0;
+               if(v){
+                   count++;
+               }
+                System.out.println(count);
+            }
             // order delete
             pstmt=conn.prepareStatement(quary4oder);
             pstmt.setInt(1,oidDeletAll);

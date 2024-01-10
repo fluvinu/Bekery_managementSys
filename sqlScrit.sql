@@ -117,8 +117,19 @@ BEGIN
     COMMIT;
 END //
 
+
+-- proceduve second is from hear
+-- =========================================================================
+
+create procedure cencleWholeOrder(OrdeId varchar(20))
+begin
+
+end//
 DELIMITER ;
 
 select  o.oId ,o.user_id,
 ors.Oid,ors.pId,ors.pQty,ors.cost,
 p.pName from order_info o inner join orders_info ors on o.oId=ors.Oid inner join product p on ors.pId=p.pId where o.user_id='user' order by ors.Oid;
+
+
+
